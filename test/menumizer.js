@@ -24,7 +24,7 @@
   // regularly referenced in your plugin).
 
   // Create the defaults once
-  var menumizer = 'defaultMenumizer',
+  var menumize = 'defaultMenumize',
     defaults = {
       propertyName: "value"
     };
@@ -41,8 +41,8 @@
     this.options = $.extend( {}, defaults, options) ;
 
     this._defaults = defaults;
-    this._name = pluginName;
-
+    this._name = menumize;
+    
     this.init();
   }
 
@@ -51,14 +51,18 @@
     // You already have access to the DOM element and
     // the options via the instance, e.g. this.element
     // and this.options
+    console.log('test');
+    console.log(this);
+    console.log(this.element);
+    console.log(this.options);
   };
 
   // A really lightweight plugin wrapper around the constructor,
   // preventing against multiple instantiations
-  $.fn[menumizer] = function ( options ) {
+  $.fn.menumize = function ( options ) {
     return this.each(function () {
-      if (!$.data(this, 'plugin_' + menumizer)) {
-        $.data(this, 'plugin_' + menumizer,
+      if (!$.data(this, 'plugin_' + menumize)) {
+        $.data(this, 'plugin_' + menumize,
           new Menumizer( this, options ));
       }
     });
