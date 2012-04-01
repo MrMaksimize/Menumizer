@@ -42,7 +42,11 @@
 
     this._defaults = defaults;
     this._name = menumize;
-    
+    // you can declare functions here.
+    this.test = function(){
+      alert('test');
+      };
+
     this.init();
   }
 
@@ -55,6 +59,8 @@
     console.log(this);
     console.log(this.element);
     console.log(this.options);
+    // you can call functions declared above here
+    this.test();
   };
 
   // A really lightweight plugin wrapper around the constructor,
