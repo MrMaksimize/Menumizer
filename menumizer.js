@@ -29,24 +29,30 @@
   var menumize = 'defaultMenumize',
     defaults = {
       // ul selectors for menus
-      menus: {},
+      menus: {}, // menus that will be affected
+      stateController: function() {
+        // must return TRUE for minimize, false for maximize
+        return $('body').hasClass('responsive-layout-mobile');
+      }
     };
 
   // The actual plugin constructor
-  function Menumizer( element, options ) {
-    this.element = element;
-
+  function Menumizer( element, options ) { 
     // jQuery has an extend method that merges the
     // contents of two or more objects, storing the
     // result in the first object. The first object
     // is generally empty because we don't want to alter
     // the default options for future instances of the plugin
     this.options = $.extend( {}, defaults, options) ;
-
+    this.element = element;
     this._defaults = defaults;
     this._name = menumize;
+    this.menus = this.options.menus;
+    this.state = '';
+    this.prevState = '';
+    this.stateController = this.options.stateController;
     // Define properties for managing menus
-
+    console.log(this);
     this.menuToDropDown = function(menu){
       // need to know: menu top container, menu ul class,
       console.log(menu);
@@ -62,7 +68,32 @@
         optionString = optionString + '>' + $('a', this).text() + '</a>';
         $('select', topContainer).append(optionString); // @todo performance by compiling string and appending all at once
       });
+
       $(menu).remove();
+    };
+
+    this.dropDownToMenu = function () {
+
+    };
+
+    this.getMenus = function () {
+       // get top container from ul class.
+      // if empty object, then get all uls.
+      var menus = this.options.menus;
+      if ($.isEmptyObject(menus)){
+        menus = $(this.element).find('ul');
+        console.log(menus);
+        return menus;
+      }
+      else {
+        for (var menu in this.menus){
+          console.log(menu); // untested
+        }
+      } 
+    };
+
+    this.getState = function () {
+    
     };
 
     this.init();
@@ -72,24 +103,40 @@
     // Place initialization logic here
     // You already have access to the DOM element and
     // the options via the instance, e.g. this.element
-    // and this.options
-    // alias self to base
-    base = this;
-    // get top container from ul class.
-    // if empty object, then get all uls.
-    menus = this.options.menus;
-    if ($.isEmptyObject(this.options.menus)) {
-      menus = $(this.element).find('ul');
-      console.log(menus);
+    //)and this.options
+    this.menus = this.getMenus();
+    this.state = this.stateController();
+    this.prevState = this.state;
+    // Determine initial state and react accordingly
+    console.log(this);
+    // Alias this to base
+    var base = this;
+    if (this.state == true) {
+      $(this.menus).each(function(index, singleMenu){
+        base.menuToDropDown(singleMenu);
+      });
     }
     // convert each menu to dropdown.
-    $(menus).each(function(index, menu){
-      base.menuToDropDown(menu);
+    $(window).resize(function(){
+      // Determine current state
+      base.state = base.stateController();
+      console.log('state ' + base.state);
+      console.log('prevState ' + base.prevState);
+      if (base.state != base.prevState){
+        // We know SOMETHING needs to happen here.  But what?
+          if (base.state == false) {
+            // UnMenumize
+            console.log('unmenumize');
+
+          }
+          else {
+            // MenuMize
+            console.log('menumize');
+         }          
+        //end by making state prevState
+        base.prevState = base.state;
+      }
     });
-    console.log(this);
-    console.log(this.element);
-    console.log(this.options);
-    this.menuToDropDown('t');
   };
 
   // A really lightweight plugin wrapper around the constructor,
