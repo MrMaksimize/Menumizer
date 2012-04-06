@@ -54,8 +54,7 @@
     // Define properties for managing menus
     console.log(this);
     this.menuToDropDown = function(menu){
-      // need to know: menu top container, menu ul class,
-      console.log(menu);
+      // need to know: menu top container, menu ul class, 
       // get top parent container
       var topContainer = $(menu).parent();
       $(topContainer).append('<select/>');
@@ -103,7 +102,7 @@
     // Place initialization logic here
     // You already have access to the DOM element and
     // the options via the instance, e.g. this.element
-    //)and this.options
+    //) and this.options
     this.menus = this.getMenus();
     this.state = this.stateController();
     this.prevState = this.state;
@@ -111,18 +110,20 @@
     console.log(this);
     // Alias this to base
     var base = this;
-    if (this.state == true) {
-      $(this.menus).each(function(index, singleMenu){
+    if (base.state == true) {
+      $(base.menus).each(function(index, singleMenu){
         base.menuToDropDown(singleMenu);
       });
+      base.prevState = true;
     }
     // convert each menu to dropdown.
     $(window).resize(function(){
       // Determine current state
       base.state = base.stateController();
-      console.log('state ' + base.state);
-      console.log('prevState ' + base.prevState);
-      if (base.state != base.prevState){
+      console.log($(window).width());
+      //console.log('state ' + base.state);
+      //console.log('prevState ' + base.prevState);
+      if (base.prevState != base.state){
         // We know SOMETHING needs to happen here.  But what?
           if (base.state == false) {
             // UnMenumize
@@ -132,7 +133,10 @@
           else {
             // MenuMize
             console.log('menumize');
-         }          
+            $(base.menus).each(function(index, singleMenu) {
+              base.menuToDropDown(singleMenu);
+            });
+         } 
         //end by making state prevState
         base.prevState = base.state;
       }

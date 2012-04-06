@@ -7,16 +7,23 @@
       <script type="text/javascript" src="../menumizer.js"></script>
       <script>
         $(document).ready(function(){
+          var width = $(window).width();
+          if (width <= 500) {
+            $('body').addClass('responsive-layout-mobile');
+          }
           $(window).resize(function() {
             var width = $(window).width();
-            if (width < 500 && !$('body').hasClass('responsive-layout-mobile')) {
+            if (width <= 500 && !$('body').hasClass('responsive-layout-mobile')) {
+             // console.log('addclass');
               $('body').addClass('responsive-layout-mobile');
             }
-            else{
+            else if (width > 500 && $('body').hasClass('responsive-layout-mobile')){
+             // console.log('removclass')
               $('body').removeClass('responsive-layout-mobile');
             }
           });
-            $('body').menumize();
+         console.log('ready');
+          $('body').menumize();
             //$('#secondary-menu').menumize();
           });
       </script>
