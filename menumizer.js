@@ -12,10 +12,8 @@
     defaults = {
       // ul selectors for menus
       menus: {}, // menus that will be affected
-      stateController: function() {
+      stateController: {}
         // must return TRUE for minimize, false for maximize
-        return $('body').hasClass('responsive-layout-mobile');
-      }
     };
 
   // The actual plugin constructor
