@@ -33,7 +33,6 @@
     this.state = '';
     this.prevState = '';
     this.stateController = this.options.stateController;
-    //this.processedMenus = {};
 
     this.menuToDropDown = function(singleMenu){
       var singleMenuParent = singleMenu.parentElement || $(singleMenu).parent();
