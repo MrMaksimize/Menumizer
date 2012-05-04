@@ -28,9 +28,12 @@
          // smush main and secondary, smush tertiary, quadruple
          // smush main and quadruple, leave rest alone.
          var menus_control = {
-           /*smush: {
-              0: [$('ul#main-menu'), $('ul#secondary-menu')]
-           },*/
+           smush: {
+              0: {
+                0: $('ul#main-menu-links'),
+                1: $('ul#secondary-menu-links')
+              }
+           },
            menumize : {
               0: $('ul#tertiary-menu-links'),
               1: $('ul#quadruple-menu-links'),

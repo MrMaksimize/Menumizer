@@ -32,13 +32,28 @@
     this.prevState = '';
     this.stateController = this.options.stateController;
 
-    this.menuToDropDown = function(singleMenu){
-      var singleMenuParent = singleMenu.parentElement || $(singleMenu).parent();
-      $(singleMenuParent).append('<select class="menumizer-select"/>');
-      var menuItems = $(singleMenu).children('li');//$(singleMenuParent).find('li');
-      //@todo - submenus <ul><li><ul><li></li></ul></li></ul>
-      $('select', singleMenuParent).append(this.menuItemsToSelects(menuItems));
-      $(singleMenu).addClass('menumizer-hidden').hide();
+    this.menuToDropDown = function(singleMenu, smush) {
+      smush = smush || false;
+      if (smush == false) {
+        var singleMenuParent = singleMenu.parentElement || $(singleMenu).parent();
+        $(singleMenuParent).append('<select class="menumizer-select"/>');
+        var menuItems = $(singleMenu).children('li');//$(singleMenuParent).find('li');
+        //@todo - submenus <ul><li><ul><li></li></ul></li></ul>
+        $('select', singleMenuParent).append(this.menuItemsToSelects(menuItems));
+        $(singleMenu).addClass('menumizer-hidden').hide();
+      }
+      else {
+        //Smushing
+        var singleMenuParent = singleMenu[0].parentElement || $(singleMenu[0]).parent();
+        $(singleMenuParent).append('<select class="menumizer-select"/>');
+        var combinedSelects = '';
+        for (var i in singleMenu) {
+          var menuItems = $(singleMenu[i]).children('li');
+          combinedSelects = combinedSelects + this.menuItemsToSelects(menuItems);
+          $(singleMenu[i]).addClass('menumizer-hidden').hide();
+        }
+        $('select', singleMenuParent).append(combinedSelects);
+      }
     };
 
     this.menuItemsToSelects = function(menuItems) {
@@ -73,17 +88,17 @@
           menus.menumize[index] = $(singleMenu, this.element);
         });
       }
-      else {
+      /*else {
         // handle simple menumizing
         if (!$.isEmptyObject(menus.menumize)) {
-          var counter = 0;
-          /*var simpleMenumize = {};
-          for (var i in menus.menumize) {
-            $(menus.menumize[i]).each(function(index, Element) {
-              simpleMenumize[counter] = Element;
-              counter++;
-            });
-          }*/
+          //var counter = 0;
+          //var simpleMenumize = {};
+          //for (var i in menus.menumize) {
+            //$(menus.menumize[i]).each(function(index, Element) {
+              //simpleMenumize[counter] = Element;
+              //counter++;
+            //});
+          //}
           console.log(menus.menumize);
           //menus.menumize = simpleMenumize;
         }
@@ -93,7 +108,7 @@
             console.log('poop');
           }
         }
-      }
+      }*/
       return menus;
     };
     this.init();
@@ -119,6 +134,9 @@
       //});
       for (var i in base.menus.menumize) {
         base.menuToDropDown(base.menus.menumize[i]);
+      }
+      for (var i in base.menus.smush) {
+        base.menuToDropDown(base.menus.smush[i], true);
       }
       base.prevState = true;
     }
