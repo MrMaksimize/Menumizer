@@ -28,10 +28,13 @@
          // smush main and secondary, smush tertiary, quadruple
          // smush main and quadruple, leave rest alone.
          var menus_control = {
-           smush: {
+           /*smush: {
               0: [$('ul#main-menu'), $('ul#secondary-menu')]
-           },
-           menumize : [$('ul#tertiary-menu'), $('ul#quadruple-menu')]
+           },*/
+           menumize : {
+              0: $('ul#tertiary-menu-links'),
+              1: $('ul#quadruple-menu-links'),
+           }
          }
          var options = {
            menus : menus_control,
@@ -63,7 +66,7 @@
       </div>
       <div id="tertiary-menu" class="navigation">
         <h2 class="element-invisible">Main menu</h2>
-        <ul id="main-menu-links" class="links clearfix">
+        <ul id="tertiary-menu-links" class="links clearfix">
           <li class="menu-230 first last active">
             <a href="/noty/" class="active">Home</a>
           </li>
@@ -71,7 +74,7 @@
       </div>
       <div id="quadruple-menu" class="navigation">
         <h2 class="element-invisible">Secondary menu</h2>
-        <ul id="secondary-menu-links" class="links inline clearfix">
+        <ul id="quadruple-menu-links" class="links inline clearfix">
           <li class="menu-2 first"><a href="/noty/user">My account</a></li>
           <li class="menu-15 last"><a href="/noty/user/logout">Log out</a></li>
         </ul>

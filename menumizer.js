@@ -35,17 +35,24 @@
     this.menuToDropDown = function(singleMenu){
       var singleMenuParent = singleMenu.parentElement || $(singleMenu).parent();
       $(singleMenuParent).append('<select class="menumizer-select"/>');
-      var menuItems = $(singleMenuParent).find('li');
+      var menuItems = $(singleMenu).children('li');//$(singleMenuParent).find('li');
+      //@todo - submenus <ul><li><ul><li></li></ul></li></ul>
+      $('select', singleMenuParent).append(this.menuItemsToSelects(menuItems));
+      $(singleMenu).addClass('menumizer-hidden').hide();
+    };
+
+    this.menuItemsToSelects = function(menuItems) {
+      var allSelects = '';
       $(menuItems).each(function() {
         var optionString = '<option value = "' + $('a', this).attr('href') + '" ';
-          if($(this).hasClass('active')){
-            optionString = optionString + 'selected="selected" '
-          }
+        if($(this).hasClass('active')){
+          optionString = optionString + 'selected="selected" '
+        }
         optionString = optionString + '>' + $('a', this).text() + '</a>';
         // @todo - deal with multiple selects
-        $('select', singleMenuParent).append(optionString); // @todo performance by compiling string and appending all at once
+        allSelects = allSelects + optionString;
       });
-      $(singleMenu).addClass('menumizer-hidden').hide();
+      return allSelects;
     };
 
     this.dropDownToMenu = function () {
@@ -57,16 +64,37 @@
        // get top container from ul class.
       // if empty object, then get all uls.
       var menus = this.options.menus;
-      if ($.isEmptyObject(menus)){
-        menus = $(this.element).find('ul');
-        return menus;
+      if ($.isEmptyObject(menus)) {
+        // Default to normal menumize as behavior
+        var allMenus = $(this.element).find('ul');
+        menus.menumize = {};
+        console.log(allMenus);
+        $(allMenus).each(function(index, singleMenu) {
+          menus.menumize[index] = $(singleMenu, this.element);
+        });
       }
       else {
-        for (var menu in this.menus){
-          alert('freakout'); // untested
-          return menu;
+        // handle simple menumizing
+        if (!$.isEmptyObject(menus.menumize)) {
+          var counter = 0;
+          /*var simpleMenumize = {};
+          for (var i in menus.menumize) {
+            $(menus.menumize[i]).each(function(index, Element) {
+              simpleMenumize[counter] = Element;
+              counter++;
+            });
+          }*/
+          console.log(menus.menumize);
+          //menus.menumize = simpleMenumize;
+        }
+        // Handle smushing.
+        if (!$.isEmptyObject(menus.smush)) {
+          for (var i in menus.smush) {
+            console.log('poop');
+          }
         }
       }
+      return menus;
     };
     this.init();
   }
@@ -85,9 +113,13 @@
     var base = this;
     if (base.state == true) {
       console.log('menumize');
-      $(base.menus).each(function(index, singleMenu){
-        base.menuToDropDown(singleMenu);
-      });
+      //$(base.menus.menumize).each(function(index, singleMenu){
+        //console.log(singleMenu);
+        //base.menuToDropDown(singleMenu);
+      //});
+      for (var i in base.menus.menumize) {
+        base.menuToDropDown(base.menus.menumize[i]);
+      }
       base.prevState = true;
     }
     // convert each menu to dropdown.
@@ -104,7 +136,7 @@
         else {
           // MenuMize
           console.log('menumize');
-          $(base.menus).each(function(index, singleMenu) {
+          $(base.menus.menumize).each(function(index, singleMenu) {
             base.menuToDropDown(singleMenu);
           });
          }
