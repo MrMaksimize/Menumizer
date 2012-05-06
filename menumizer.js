@@ -76,7 +76,6 @@
         // Default to normal menumize as behavior
         var allMenus = $(this.element).find('ul');
         menus.menumize = {};
-        console.log(allMenus);
         $(allMenus).each(function(index, singleMenu) {
           menus.menumize[index] = $(singleMenu, this.element);
         });
@@ -92,11 +91,9 @@
     this.state = this.stateController(this.minPoint);
     this.prevState = this.state;
     // Determine initial state and react accordingly
-    console.log(this);
     // Alias this to base
     var base = this;
     if (base.state == true) {
-      console.log('menumize');
       for (var i in base.menus.menumize) {
         base.menuToDropDown(base.menus.menumize[i]);
       }
@@ -109,16 +106,13 @@
     $(window).resize(function(){
       // Determine current state
       base.state = base.stateController(base.minPoint);
-      console.log($(window).width());
       if (base.prevState != base.state){
         if (base.state == false) {
           // UnMenumize
-          console.log('unmenumize');
           base.dropDownToMenu();
         }
         else {
           // MenuMize
-          console.log('menumize');
           for (var i in base.menus.menumize) {
             base.menuToDropDown(base.menus.menumize[i]);
           }
