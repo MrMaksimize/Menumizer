@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>JavaScript Patterns</title>
+    <meta charset="utf-8">
+      <script type="text/javascript" src="../jquery-1.7.2.js"></script>
+      <script type="text/javascript" src="../menumizer.js"></script>
+      <script>
+       $(document).ready(function(){
+          /*var width = $(window).width();
+          if (width <= 500) {
+            $('body').addClass('responsive-layout-mobile');
+          }
+          $(window).resize(function() {
+            var width = $(window).width();
+            if (width <= 500 && !$('body').hasClass('responsive-layout-mobile')) {
+             // console.log('addclass');
+              $('body').addClass('responsive-layout-mobile');
+            }
+            else if (width > 500 && $('body').hasClass('responsive-layout-mobile')){
+             // console.log('removclass')
+              $('body').removeClass('responsive-layout-mobile');
+            }
+          });
+         console.log('ready');*/
+         // smush main and secondary, leave rest alone
+         // smush secondary and tertiary, leave rest alone
+         // smush main and secondary, smush tertiary, quadruple
+         // smush main and quadruple, leave rest alone.
+         var menus_control = {
+           smush: {
+              0: {
+                0: $('ul#main-menu-links'),
+                1: $('ul#secondary-menu-links')
+              }
+           },
+           menumize : {
+              0: $('ul#tertiary-menu-links'),
+              1: $('ul#quadruple-menu-links'),
+           }
+         }
+         var options = {
+           menus : menus_control,
+           /*stateController: function() {
+            // must return TRUE for minimize, false for maximize
+            //return $('body').hasClass('responsive-layout-mobile');
+            var width = $(window).width();
+            if (width <= 500) {
+              return true;
+            }
+            else {
+              return false;
+            }
+           }*/
+         }
+          $('body').menumize(options);
+            //$('#secondary-menu').menumize();
+          });
+      </script>
+    </head>
+    <body>
+      <div id="main-menu" class="navigation">
+        <h2 class="element-invisible">Main menu</h2>
+        <ul id="main-menu-links" class="links clearfix">
+          <li class="menu-230 first last active">
+            <a href="/noty/" class="active">Home</a>
+          </li>
+        </ul>
+      </div>
+      <div id="secondary-menu" class="navigation">
+        <h2 class="element-invisible">Secondary menu</h2>
+        <ul id="secondary-menu-links" class="links inline clearfix">
+          <li class="menu-2 first"><a href="/noty/user">My account</a></li>
+          <li class="menu-15 last"><a href="/noty/user/logout">Log out</a></li>
+        </ul>
+      </div>
+      <div id="tertiary-menu" class="navigation">
+        <h2 class="element-invisible">Main menu</h2>
+        <ul id="tertiary-menu-links" class="links clearfix">
+          <li class="menu-230 first last active">
+            <a href="/noty/" class="active">Home</a>
+          </li>
+        </ul>
+      </div>
+      <div id="quadruple-menu" class="navigation">
+        <h2 class="element-invisible">Secondary menu</h2>
+        <ul id="quadruple-menu-links" class="links inline clearfix">
+          <li class="menu-2 first"><a href="/noty/user">My account</a></li>
+          <li class="menu-15 last"><a href="/noty/user/logout">Log out</a></li>
+        </ul>
+      </div>
+    </body>
+</html>
