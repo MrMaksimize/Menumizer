@@ -5,9 +5,9 @@
       // menus that will be affected
       // contains smush and menumize objects
       menus: {},
-      stateController: function() {
+      stateController: function(minPoint) {
         var width = $(window).width();
-        return width <= 500;
+        return width <= minPoint;
       }
       // must return TRUE for minimize, false for maximize
     };
@@ -22,6 +22,8 @@
     this.state = '';
     this.prevState = '';
     this.stateController = this.options.stateController;
+    this.minPoint = this.options.minPoint;
+
 
     this.menuToDropDown = function(singleMenu, smush) {
       smush = smush || false;
@@ -87,7 +89,7 @@
 
   Menumizer.prototype.init = function () {
     this.menus = this.getMenus();
-    this.state = this.stateController();
+    this.state = this.stateController(this.minPoint);
     this.prevState = this.state;
     // Determine initial state and react accordingly
     console.log(this);
@@ -106,7 +108,7 @@
     // convert each menu to dropdown.
     $(window).resize(function(){
       // Determine current state
-      base.state = base.stateController();
+      base.state = base.stateController(base.minPoint);
       console.log($(window).width());
       if (base.prevState != base.state){
         if (base.state == false) {
