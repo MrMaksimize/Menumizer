@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/respond.js"></script>
+    <script src="https://raw.github.com/MrMaksimize/Menumizer/master/menumizer.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -15,7 +16,31 @@
     <link rel="stylesheet" href="stylesheets/ie.css">
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <script>
+       $(document).ready(function() {
+         // smush main and secondary, leave rest alone
+         // smush secondary and tertiary, leave rest alone
+         // smush main and secondary, smush tertiary, quadruple
+         // smush main and quadruple, leave rest alone.
+         var menus_control = {
+           smush: {
+              0: {
+                0: $('ul#main-menu-links'),
+                1: $('ul#secondary-menu-links')
+              }
+           },
+           menumize : {
+              0: $('ul#tertiary-menu-links'),
+              1: $('ul#quadruple-menu-links'),
+           }
+         }
+         var options = {
+           //menus : menus_control,
+           minPoint: 500
+         }
+          $('body').menumize(options);
+      });
+      </script>
   </head>
   <body>
       <div id="header">
@@ -52,8 +77,47 @@
 
 <p><code>smush</code> - an object containing objects that contain menus that need to be merged together when converted.</p>
       </section>
+    <h3>Example</h3>
+
+    <div id="main-menu" class="navigation">
+        <h4 class="element-invisible">Main menu</h4>
+        <ul id="main-menu-links" class="links clearfix">
+          <li class="active"><a href="test/page1" class="active">Main Menu Item 1</a></li>
+          <li><a href="test/page2" class="active">Main Menu Item 2</a></li>
+          <li><a href="test/page3" class="active">Main Menu Item 3</a></li>
+          <li><a href="test/page4" class="active">Main Menu Item 4</a></li>
+        </ul>
+      </div>
+      <div id="secondary-menu" class="navigation">
+        <h4 class="element-invisible">Secondary menu</h4>
+        <ul id="secondary-menu-links" class="links inline clearfix">
+          <li class="active"><a href="test/page1" class="active">Secondary Menu Item 1</a></li>
+          <li><a href="test/page2" class="active">Secondary Menu Item 2</a></li>
+          <li><a href="test/page3" class="active">Secondary Menu Item 3</a></li>
+          <li><a href="test/page4" class="active">Secondary Menu Item 4</a></li>
+        </ul>
+      </div>
+      <div id="tertiary-menu" class="navigation">
+        <h4 class="element-invisible">Tertiary Menu</h4>
+        <ul id="tertiary-menu-links" class="links clearfix">
+          <li class="active"><a href="test/page1" class="active">Tert Menu Item 1</a></li>
+          <li><a href="test/page2" class="active">Tert Menu Item 2</a></li>
+          <li><a href="test/page3" class="active">Tert Menu Item 3</a></li>
+          <li><a href="test/page4" class="active">Tert Menu Item 4</a></li>
+        </ul>
+      </div>
+      <div id="quadruple-menu" class="navigation">
+        <h4 class="element-invisible">Quad menu</h4>
+        <ul id="quadruple-menu-links" class="links inline clearfix">
+          <li class="active"><a href="test/page1" class="active">Quad Menu Item 1</a></li>
+          <li><a href="test/page2" class="active">Quad Menu Item 2</a></li>
+          <li><a href="test/page3" class="active">Quad Menu Item 3</a></li>
+          <li><a href="test/page4" class="active">Quad Menu Item 4</a></li>
+        </ul>
+      </div>
 
     </div>
+
     <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
