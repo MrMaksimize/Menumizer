@@ -1,15 +1,12 @@
 ;(function ( $, window, document, undefined ) {
   var menumize = 'defaultMenumize',
     defaults = {
-      // ul selectors for menus
-      // menus that will be affected
-      // contains smush and menumize objects
-      menus: {},
+      menus: {}, //Smush and menumize
+      // must return TRUE for minimize, false for maximize
       stateController: function(minPoint) {
         var width = $(window).width();
         return width <= minPoint;
       }
-      // must return TRUE for minimize, false for maximize
     };
 
   // The actual plugin constructor

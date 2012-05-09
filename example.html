@@ -3,26 +3,10 @@
   <head>
     <title>JavaScript Patterns</title>
     <meta charset="utf-8">
-      <script type="text/javascript" src="../jquery-1.7.2.js"></script>
-      <script type="text/javascript" src="../menumizer.js"></script>
+      <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.js"></script>
+      <script type="text/javascript" src="menumizer.js"></script>
       <script>
-        $(document).ready(function(){
-          var width = $(window).width();
-          if (width <= 500) {
-            $('body').addClass('responsive-layout-mobile');
-          }
-          $(window).resize(function() {
-            var width = $(window).width();
-            if (width <= 500 && !$('body').hasClass('responsive-layout-mobile')) {
-             // console.log('addclass');
-              $('body').addClass('responsive-layout-mobile');
-            }
-            else if (width > 500 && $('body').hasClass('responsive-layout-mobile')){
-             // console.log('removclass')
-              $('body').removeClass('responsive-layout-mobile');
-            }
-          });
-         console.log('ready');
+       $(document).ready(function() {
          // smush main and secondary, leave rest alone
          // smush secondary and tertiary, leave rest alone
          // smush main and secondary, smush tertiary, quadruple
@@ -41,14 +25,10 @@
          }
          var options = {
            menus : menus_control,
-           stateController: function() {
-            // must return TRUE for minimize, false for maximize
-            return $('body').hasClass('responsive-layout-mobile');
-           }
+           minPoint: 500
          }
           $('body').menumize(options);
-            //$('#secondary-menu').menumize();
-          });
+      });
       </script>
     </head>
     <body>
