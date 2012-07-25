@@ -4,7 +4,7 @@ Menumizer is a simple jQuery library for making menus responsive.  The idea is t
 
 Menumizer works by taking three main parameters:
 
-`stateController` - callback function that takes the `minPoint` paramter and determines whether the menus should be converted to selects, or should they be converted back to regular menus.  Defaults to being triggered on window wize <= `minPoint`
+`stateController` - callback function that takes the `minPoint` parameter and determines whether the menus should be converted to selects, or should they be converted back to regular menus.  Defaults to being triggered on window wize <= `minPoint`
 
 `minPoint` - an integer determining when the menumizer would trigger
 
